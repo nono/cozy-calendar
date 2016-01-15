@@ -1,5 +1,4 @@
 americano = require 'americano-cozy'
-time = require 'time'
 User = require './user'
 
 module.exports = Alarm = americano.getModel 'Alarm',
@@ -32,8 +31,7 @@ Alarm.tags = (callback) ->
 Alarm::timezoned = (timezone) ->
     throw new Error "buggy alarm" + @id if not @trigg
     timezone ?= User.timezone
-    timezonedDate = new time.Date @trigg, 'UTC'
-    timezonedDate.setTimezone timezone
+    timezonedDate = new Date @trigg
     @timezone ?= timezone
     @trigg = timezonedDate.toString().slice(0, 24)
     return @
@@ -44,24 +42,4 @@ Alarm::timezoned = (timezone) ->
 # store the TZed trigg in timezoneHour
 # @TODO : handling TZ clientside would be better
 Alarm.toUTC = (attrs, timezone) ->
-    timezone ?= User.timezone
-
-    if attrs.timezoneHour # popover save
-        if attrs.id
-            trigg = new time.Date attrs.trigg, User.timezone
-            trigg.setTimezone attrs.timezone
-        else
-            trigg = new time.Date attrs.trigg, attrs.timezone
-
-        [hours, minutes] = attrs.timezoneHour.split(':')
-        trigg.setHours(hours)
-        trigg.setMinutes(minutes)
-
-    else # D&D in the interface
-        trigg = new time.Date(attrs.trigg, User.timezone)
-        trigg.setTimezone(attrs.timezone)
-
-    attrs.timezoneHour = trigg.toString().slice(16, 21)
-    trigg.setTimezone('UTC')
-    attrs.trigg = trigg.toString().slice(0, 24)
     return attrs

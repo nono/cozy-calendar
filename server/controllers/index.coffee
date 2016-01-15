@@ -1,4 +1,3 @@
-time = require('time')
 async = require('async')
 CozyInstance = require '../models/cozy_instance'
 Alarm = require '../models/alarm'

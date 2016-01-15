@@ -1,5 +1,4 @@
 americano = require 'americano-cozy'
-time = require 'time'
 User = require './user'
 
 module.exports = Event = americano.getModel 'Event',
@@ -32,16 +31,6 @@ Event.tags = (callback) ->
 # before sending to the client
 # set the start/end in TZ time
 Event::timezoned = (timezone) ->
-    timezone ?= User.timezone
-
-    timezonedDate = new time.Date(@start, 'UTC')
-    timezonedDate.setTimezone(timezone)
-    @start = timezonedDate.toString().slice(0, 24)
-
-    timezonedDate = new time.Date(@end, 'UTC')
-    timezonedDate.setTimezone(timezone)
-    @end = timezonedDate.toString().slice(0, 24)
-
     return @
 
 # @TODO : this doesn't handle merge correctly
@@ -63,16 +52,6 @@ Event::getGuest = (key) ->
 # else we use the User's TZ
 # set the start/end to UTC
 Event.toUTC = (attrs) ->
-    timezone = attrs.timezone or User.timezone
-
-    start = new time.Date(attrs.start, timezone)
-    start.setTimezone 'UTC'
-    attrs.start = start.toString().slice(0, 24)
-
-    end = new time.Date(attrs.end, timezone)
-    end.setTimezone 'UTC'
-    attrs.end = end.toString().slice(0, 24)
-
     return attrs
 
 

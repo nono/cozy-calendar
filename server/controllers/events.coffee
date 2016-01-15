@@ -1,4 +1,3 @@
-time = require 'time'
 moment = require 'moment'
 User = require '../models/user'
 Event = require '../models/event'

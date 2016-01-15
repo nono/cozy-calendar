@@ -1,4 +1,3 @@
-time = require 'time'
 User = require '../models/user'
 Alarm = require '../models/alarm'
 

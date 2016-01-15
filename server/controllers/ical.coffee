@@ -1,4 +1,3 @@
-time = require 'time'
 moment = require 'moment'
 ical = require 'cozy-ical'
 Event = require '../models/event'
