@@ -12,8 +12,6 @@ module.exports = Alarm = americano.getModel 'Alarm',
     related      : type : String, default: null
 
 
-require('cozy-ical').decorateAlarm Alarm
-
 Alarm.all = (params, callback) ->
     Alarm.request "all", params, callback
 

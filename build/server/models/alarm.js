@@ -36,8 +36,6 @@ module.exports = Alarm = americano.getModel('Alarm', {
   }
 });
 
-require('cozy-ical').decorateAlarm(Alarm);
-
 Alarm.all = function(params, callback) {
   return Alarm.request("all", params, callback);
 };
